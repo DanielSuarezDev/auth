@@ -7,6 +7,9 @@
     <title>Document</title>
 </head>
 <body>
+<h1 id="user_name"></h1>
+<button onclick="loginWithGoogle()">Login Google</button>
+<!-- // Iniciar firebase con cdn -->
      <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
   <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
@@ -19,6 +22,7 @@
   <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-firestore.js"></script>
 
+ <!--  // Cuadrar id apis -->
     <script type="text/javascript">
         var firebaseConfig = {
         apiKey: "AIzaSyA9k8KjheZGLUGVM20xNmhCcTMdgbTSwe8",
@@ -35,10 +39,12 @@
         firebase.initializeApp(firebaseConfig);
     </script>
 
-
+<!-- //Iniciar api google emergente -->
     <script type="text/javascript">
-        var provider = new firebase.auth.GoogleAuthProvider();
 
+        const loginWithGoogle = () =>{
+
+        var provider = new firebase.auth.GoogleAuthProvider();
 
         firebase.auth()
         .signInWithPopup(provider)
@@ -51,6 +57,8 @@
             // The signed-in user info.
             var user = result.user;
             // ...
+
+            updateUser(user)
         }).catch((error) => {
             // Handle Errors here.
             var errorCode = error.code;
@@ -61,6 +69,16 @@
             var credential = error.credential;
             // ...
         });
+
+    }
+
+    /* // saludar usuario */
+
+    const updateUser = (user) =>{
+        const user_name = document.getElementById('user_name');
+
+        user_name.innerHTML = `Hola ${user.displayName}`;
+    }
     </script>
   </body>
 </html>
